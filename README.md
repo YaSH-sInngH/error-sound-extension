@@ -36,9 +36,33 @@ A VS Code extension that plays meme sound effects when you mess up — because y
 ```bash
 npm install -g vsce
 vsce package
+code --install-extension *.vsix
 ```
 
-Then: **Extensions panel → `···` menu → Install from VSIX**
+---
+
+## How to Share / Distribute
+
+### Option 1 — VS Code Marketplace (Recommended)
+Publish publicly so anyone can find and install it with one click.
+```bash
+vsce publish
+```
+
+Requires a free Azure DevOps account. Once published, updates are automatic for all users:
+```bash
+vsce publish patch   # bump version + push update
+```
+
+### Option 2 — GitHub + Direct Install (No Marketplace)
+Push to GitHub and let people install it manually. Still free, no account needed.
+```bash
+git clone your-repo
+cd meme-dev-sounds
+npm install
+vsce package
+code --install-extension *.vsix
+```
 
 ---
 
@@ -57,3 +81,18 @@ Drop a `.wav` into the `sounds/` folder and call it in `extension.js`:
 ```javascript
 playSound(context, 'your-sound.wav');
 ```
+
+> **Windows note:** Only `.wav` files are supported on Windows. macOS supports any format `afplay` handles. Linux requires `aplay`.
+
+---
+
+## ⚠️ Legal Note (If Publishing Publicly)
+
+Be careful with audio files if you publish to the Marketplace. Sounds taken from movies, YouTube, or Instagram reels can trigger copyright takedowns.
+
+Safe options:
+- Record your own voice
+- Use royalty-free sounds
+- Create original parody sounds
+
+If it's just for **private/personal use** → no problem at all.
