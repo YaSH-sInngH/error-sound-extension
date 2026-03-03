@@ -1,98 +1,55 @@
 # 🔊 Meme Dev Sounds
 
-A VS Code extension that plays meme sound effects when you mess up — because your errors deserve an audience.
+> Plays meme sounds when you write bad code or run a wrong command in terminal.
 
 ---
 
-## Sounds
+## Install
 
-| Sound | Trigger |
-|-------|---------|
-| `faaa.wav` | Syntax / code error appears in the editor (red squiggles) |
-| `kya-cheda-bhosdi.wav` | A terminal command fails (non-zero exit code) |
+Make sure you have [Node.js](https://nodejs.org) and [VS Code](https://code.visualstudio.com) installed.
+
+```bash
+git clone https://github.com/your-username/meme-dev-sounds.git
+cd meme-dev-sounds
+npm install
+npm install -g vsce
+vsce package
+code --install-extension meme-dev-sounds-0.0.1.vsix
+```
+
+Restart VS Code. Done. ✅
 
 ---
 
-## Requirements
+## What It Does
 
-- VS Code **1.93+** (for shell integration API)
-- Shell integration must be enabled (on by default). If terminal sounds aren't working, add this to `settings.json`:
+| Trigger | Sound |
+|---------|-------|
+| Syntax / code error in editor | `faaa.wav` |
+| Terminal command fails | `kya-cheda-bhosdi.wav` |
+
+---
+
+## Not Working?
+
+If terminal sounds aren't playing, add this to your VS Code `settings.json`:
+
 ```json
 "terminal.integrated.shellIntegration.enabled": true
 ```
 
 ---
 
-## How to Run (Development)
+## Add Your Own Sounds
 
-1. Open this folder in VS Code
-2. Press **F5** — launches a new Extension Development Host window
-3. Make a syntax error in any file → `faaa.wav` plays
-4. Run a bad terminal command like `blah` → `kya-cheda-bhosdi.wav` plays
+Drop any `.wav` file into the `sounds/` folder and wire it up in `extension.js`:
 
----
-
-## How to Install Permanently
-```bash
-npm install -g vsce
-vsce package
-code --install-extension *.vsix
-```
-
----
-
-## How to Share / Distribute
-
-### Option 1 — VS Code Marketplace (Recommended)
-Publish publicly so anyone can find and install it with one click.
-```bash
-vsce publish
-```
-
-Requires a free Azure DevOps account. Once published, updates are automatic for all users:
-```bash
-vsce publish patch   # bump version + push update
-```
-
-### Option 2 — GitHub + Direct Install (No Marketplace)
-Push to GitHub and let people install it manually. Still free, no account needed.
-```bash
-git clone your-repo
-cd meme-dev-sounds
-npm install
-vsce package
-code --install-extension *.vsix
-```
-
----
-
-## How It Works
-
-- **Code errors** — `onDidChangeDiagnostics` fires when linter/compiler errors appear. Any error-level diagnostic triggers the sound.
-- **Terminal errors** — `onDidEndTerminalShellExecution` captures exit codes. Any non-zero exit code triggers the sound. Works with bash, zsh, PowerShell, cmd, git, npm, etc.
-
-A **1500ms cooldown** prevents sound spam.
-
----
-
-## Adding More Sounds
-
-Drop a `.wav` into the `sounds/` folder and call it in `extension.js`:
 ```javascript
 playSound(context, 'your-sound.wav');
 ```
 
-> **Windows note:** Only `.wav` files are supported on Windows. macOS supports any format `afplay` handles. Linux requires `aplay`.
-
 ---
 
-## ⚠️ Legal Note (If Publishing Publicly)
+## ⚠️ Publishing Note
 
-Be careful with audio files if you publish to the Marketplace. Sounds taken from movies, YouTube, or Instagram reels can trigger copyright takedowns.
-
-Safe options:
-- Record your own voice
-- Use royalty-free sounds
-- Create original parody sounds
-
-If it's just for **private/personal use** → no problem at all.
+If you share this publicly, make sure your audio files are original or royalty-free. Sounds from movies, reels, or YouTube can get your extension taken down. For personal use, no issues.
