@@ -4,7 +4,7 @@
   "description": "Meme sound effects for development",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.93.0"
+    "vscode": "^1.109.0"
   },
   "categories": [
     "Other"
